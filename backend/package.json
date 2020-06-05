@@ -1,0 +1,35 @@
+{
+  "name": "api-calendar",
+  "version": "1.0.0",
+  "description": "Node.js API for calendar system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/routers/index.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/le11/api-calendar.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/le11/api-calendar/issues"
+  },
+  "homepage": "https://github.com/le11/api-calendar#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "activedirectory": "^0.7.2",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-promise-router": "^3.0.3",
+    "jsonwebtoken": "^8.5.1",
+    "ldapjs": "^1.0.2",
+    "mssql": "^6.2.0"
+  }
+}
