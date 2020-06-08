@@ -12,10 +12,8 @@ const pool = require("../config/database");
 // => Método que lista todos os registros da tabela
 exports.listAll = async (req, res) => {
   try {
-    pool.connect();
     const response = await pool.request().query("select * from schedule");
     res.status(200).send(response.recordset);
-    pool.close();
   } catch (err) {
     res.status(500).send({ message: "SQL error: " + err });
   }
