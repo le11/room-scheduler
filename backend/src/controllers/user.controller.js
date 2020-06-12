@@ -17,7 +17,7 @@ const supersecret = process.env.SECRET;
 
 const jwtParams = {
   algorithm: "HS256", // tipo de criptografia
-  expiresIn: 60 * 24, // tempo que expira
+  expiresIn: 60 * 24 * 24, // tempo que expira
 };
 
 exports.user_authenticate = async (req, res) => {
