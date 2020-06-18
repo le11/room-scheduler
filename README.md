@@ -1,6 +1,6 @@
 # Room Scheduler
-Room Scheduler website
+Room Scheduler
 
-Back-end: NodeJs API
+NodeJs API
 
-Front-end: React with js fullcalendar
+
