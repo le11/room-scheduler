@@ -1,6 +1,5 @@
 # Room Scheduler
-Room Scheduler
 
-NodeJs API
+NodeJs API for use with Javascript FullCalendar
 
 
