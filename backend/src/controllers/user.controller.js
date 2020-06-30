@@ -87,3 +87,18 @@ exports.getAllUserByGroup = async (req, res) => {
     res.status(500).send({ message: "ERROR " + err });
   }
 };
+
+exports.verify = async (req, res) => {
+  const token = req.params.token;
+  try{
+   await jwt.verify(token, supersecret, (err, data) => {
+      if(err) return res.status(403).json(err);
+      // else if(!data){
+      //   return res.status(403).json({exp: true});
+      // }
+      return res.status(200).json(data);
+    })
+  }catch(err){
+    res.status(500).json({ message: "error" + err });
+  }
+};
