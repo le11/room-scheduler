@@ -99,7 +99,7 @@ exports.getAllEvents = async (req, res) => {
     .query("SELECT * FROM VW_EVENT WHERE title = @user and groupId = @groupId");
   }
   response.recordset < 1
-    ? res.status(404).send({ message: "error" })
+    ? res.status(406).send({ message: "error" })
     : res.status(200).send(response.recordset);
   } catch (err) {
     res.status(500).send({ message: "SQL error: " + err });
