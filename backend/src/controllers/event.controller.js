@@ -72,12 +72,35 @@ exports.deleteById = async (req, res) => {
   }
 };
 
+// => Lista todos os eventos (fullcalendar mode)
 exports.getAllEvents = async (req, res) => {
+ const {room_id, user} = req.query;
+  
   try {
-    const response = await pool.request().query("SELECT * FROM VW_EVENT");
-    response.recordset < 1
-      ? res.status(404).send({ message: "error" })
-      : res.status(200).send(response.recordset);
+    if(room_id == null && user == null){
+    var response = await pool.request().query("SELECT * FROM VW_EVENT");
+  }
+  else if(user == null && room_id != null){
+    const groupId = parseInt(room_id);
+    response = await pool.request()
+    .input("groupId", sql.Int, groupId)
+    .query("SELECT * FROM VW_EVENT WHERE groupId = @groupId")
+  }
+  else if (room_id == null && user != null) {
+    response = await pool.request()
+    .input("user", sql.VarChar, user)
+    .query("SELECT * FROM VW_EVENT WHERE title = @user");
+  }
+  else {
+    const groupId = parseInt(room_id);
+    response = await pool.request()
+    .input("user", sql.VarChar, user)
+    .input("groupId", sql.Int, groupId)
+    .query("SELECT * FROM VW_EVENT WHERE title = @user and groupId = @groupId");
+  }
+  response.recordset < 1
+    ? res.status(404).send({ message: "error" })
+    : res.status(200).send(response.recordset);
   } catch (err) {
     res.status(500).send({ message: "SQL error: " + err });
   }
@@ -99,34 +122,3 @@ exports.findById = async (req, res) => {
   }
 };
 
-exports.findByUser = async (req, res) => {
-  try {
-    const user = req.params.user;
-    const response = await pool
-      .request()
-      .input("title", sql.VarChar, user)
-      .query("SELECT * FROM VW_EVENT WHERE title = @title");
-
-    response.recordset < 1
-      ? res.status(404).send({ message: "error" })
-      : res.status(200).send(response.recordset);
-  } catch (err) {
-    res.status(500).send({ message: "SQL error: " + err });
-  }
-};
-
-exports.getAllByRoom = async (req, res) => {
-  try {
-    const groupId = parseInt(req.params.id);
-    const response = await pool
-      .request()
-      .input("groupId", sql.Int, groupId)
-      .query("SELECT * FROM VW_EVENT WHERE groupId = @groupId");
-
-    response.recordset < 1
-      ? res.status(404).send({ message: "error" })
-      : res.status(200).send(response.recordset);
-  } catch (err) {
-    res.status(500).send({ message: "SQL error: " + err });
-  }
-};
