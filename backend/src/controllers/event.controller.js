@@ -96,7 +96,7 @@ exports.getAllEvents = async (req, res) => {
     response = await pool.request()
     .input("user", sql.VarChar, user)
     .input("groupId", sql.Int, groupId)
-    .query("SELECT * FROM VW_EVENT WHERE title = @user OR creation_user = @user AND groupId = @groupId");
+    .query("SELECT * FROM VW_EVENT WHERE (title = @user OR creation_user = @user) AND groupId = @groupId");
   }
   response.recordset < 1
     ? res.status(204).send({ message: "empty" })
