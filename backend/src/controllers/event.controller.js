@@ -89,17 +89,17 @@ exports.getAllEvents = async (req, res) => {
   else if (room_id == null && user != null) {
     response = await pool.request()
     .input("user", sql.VarChar, user)
-    .query("SELECT * FROM VW_EVENT WHERE title = @user");
+    .query("SELECT * FROM VW_EVENT WHERE title = @user OR creation_user = @user");
   }
   else {
     const groupId = parseInt(room_id);
     response = await pool.request()
     .input("user", sql.VarChar, user)
     .input("groupId", sql.Int, groupId)
-    .query("SELECT * FROM VW_EVENT WHERE title = @user and groupId = @groupId");
+    .query("SELECT * FROM VW_EVENT WHERE title = @user OR creation_user = @user AND groupId = @groupId");
   }
   response.recordset < 1
-    ? res.status(406).send({ message: "error" })
+    ? res.status(204).send({ message: "empty" })
     : res.status(200).send(response.recordset);
   } catch (err) {
     res.status(500).send({ message: "SQL error: " + err });
