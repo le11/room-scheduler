@@ -12,10 +12,10 @@ dotenv.config();
 
 
 const config = {
-    url: process.env.ad_url,
-    baseDN: process.env.domain_controller,
-    username: process.env.ad_username,
-    password: process.env.ad_password,
+    url: process.env.AD_URL,
+    baseDN: process.env.DOMAIN_CONTROLLER,
+    username: process.env.AD_USERNAME,
+    password: process.env.AD_PASSWORD,
         attributes: {
             user: ['sAMAccountName', 'cn']
         }
