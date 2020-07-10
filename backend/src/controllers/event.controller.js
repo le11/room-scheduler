@@ -45,7 +45,7 @@ exports.createEvent = async (req, res) => {
       .execute("SP_INSERT_CHECK");
 
     if (response.rowsAffected < 1) {
-      res.status(403).send({
+      res.status(206).send({
         message: "Duplicado!",
       });
     } else {
